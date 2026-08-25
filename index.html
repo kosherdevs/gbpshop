@@ -1,40 +1,239 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-variation="gbpstore">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Welcome back - GBP Store</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Home - GBP Store</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇬🇧</text></svg>"/>
+    <link rel="stylesheet" href="style.css"/>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
-<body>
-    <div class="container">
-        <div class="card">
-
-            <!-- Brand Header -->
-            <div class="brand-header">
-                <div class="logo">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="44" height="44" rx="12" fill="#1a4d8f" />
-                        <path d="M12 28L22 12L32 28H27L22 20L17 28H12Z" fill="white" />
-                        <circle cx="22" cy="18" r="2" fill="white" opacity="0.6" />
-                    </svg>
-                    <span>GBP Store</span>
+<body class="min-h-screen antialiased">
+    <canvas id="ambient-canvas" class="pointer-events-none fixed inset-0 z-0 h-full w-full"></canvas>
+    <div class="relative z-10">
+        <div class="flex min-h-screen">
+            <!-- Sidebar -->
+            <aside class="sticky top-0 hidden h-screen w-64 shrink-0 flex-col bg-card/60 p-3 md:flex">
+                <a href="/" class="flex items-center gap-3 px-2 py-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-md bg-primary text-xl font-bold text-white">£</div>
+                    <span class="text-2xl font-bold text-foreground">GBP Store</span>
+                </a>
+                <nav class="mt-1 flex-1 overflow-y-auto pr-1">
+                    <!-- Navigation Sections -->
+                    <div class="mt-4 first:mt-0">
+                        <div class="px-2 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">Navigation</div>
+                        <div class="mt-1.5 space-y-0.5">
+                            <a href="#" class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors bg-accent text-foreground" data-page="home">
+                                <span class="inline-flex items-center">🏠</span>Home
+                            </a>
+                            <a href="#" class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors text-foreground/90 hover:bg-accent/60" data-page="notifications">
+                                <span class="inline-flex items-center">🔔</span>Notifications
+                            </a>
+                            <a href="#" class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors text-foreground/90 hover:bg-accent/60" data-page="updates">
+                                <span class="inline-flex items-center">📈</span>Stock Updates
+                            </a>
+                            <a href="#" class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors text-foreground/90 hover:bg-accent/60" data-page="vouches">
+                                <span class="inline-flex items-center">⭐</span>Vouches
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-4 first:mt-0">
+                        <div class="px-2 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">Shopping</div>
+                        <div class="mt-1.5 space-y-0.5">
+                            <a href="#" class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors text-foreground/90 hover:bg-accent/60" data-page="products">
+                                <span class="inline-flex items-center">🛍️</span>Products
+                            </a>
+                            <a href="#" class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors text-foreground/90 hover:bg-accent/60" data-page="cards">
+                                <span class="inline-flex items-center">💳</span>Cards
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-4 first:mt-0">
+                        <div class="px-2 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">Finance</div>
+                        <div class="mt-1.5 space-y-0.5">
+                            <a href="#" class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors text-foreground/90 hover:bg-accent/60" data-page="balance">
+                                <span class="inline-flex items-center">💰</span>Add funds
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-4 first:mt-0">
+                        <div class="px-2 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">My Orders</div>
+                        <div class="mt-1.5 space-y-0.5">
+                            <a href="#" class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors text-foreground/90 hover:bg-accent/60" data-page="orders">
+                                <span class="inline-flex items-center">📦</span>Orders
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-4 first:mt-0">
+                        <div class="px-2 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">Settings</div>
+                        <div class="mt-1.5 space-y-0.5">
+                            <a href="#" class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors text-foreground/90 hover:bg-accent/60" data-page="settings">
+                                <span class="inline-flex items-center">⚙️</span>Account &amp; security
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+                <div class="mt-3 space-y-1 pt-3">
+                    <button id="logout-btn" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 w-full">
+                        <span class="inline-flex items-center">🚪</span> Logout
+                    </button>
                 </div>
-                <div class="store-badge">🛒 Premium Retail</div>
-            </div>
+            </aside>
 
-            <!-- Welcome Section -->
-            <h1>Welcome back</h1>
-            <p class="subtitle">Sign in to your GBP Store account.</p>
+            <!-- Main Content -->
+            <main class="relative min-w-0 flex-1">
+                <!-- Mobile Header -->
+                <header class="flex h-14 items-center justify-between gap-2 px-4 md:hidden">
+                    <button id="mobile-menu-btn" class="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors h-9 w-9 cursor-pointer hover:bg-secondary/60">
+                        <span class="text-2xl">☰</span>
+                    </button>
+                    <a href="#"><span class="text-lg font-bold">GBP Store</span></a>
+                    <a href="#" class="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors h-9 w-9 hover:bg-secondary/60">
+                        <span class="text-xl">🛒</span>
+                    </a>
+                </header>
 
-            <!-- Sign In Form -->
-            <form id="signin-form">
-                <div class="input-group">
-                    <label for="email">Email or username</label>
-                    <input type="text" id="email" placeholder="Enter your email or username" required />
+                <!-- Mobile Menu -->
+                <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-50 bg-background/95 backdrop-blur p-4">
+                    <button id="mobile-menu-close" class="absolute right-4 top-4 text-2xl">✕</button>
+                    <nav class="mt-12 space-y-2">
+                        <a href="#" class="block rounded-md px-4 py-3 text-sm hover:bg-accent" data-page="home">🏠 Home</a>
+                        <a href="#" class="block rounded-md px-4 py-3 text-sm hover:bg-accent" data-page="notifications">🔔 Notifications</a>
+                        <a href="#" class="block rounded-md px-4 py-3 text-sm hover:bg-accent" data-page="products">🛍️ Products</a>
+                        <a href="#" class="block rounded-md px-4 py-3 text-sm hover:bg-accent" data-page="orders">📦 Orders</a>
+                        <a href="#" class="block rounded-md px-4 py-3 text-sm hover:bg-accent" data-page="balance">💰 Balance</a>
+                        <a href="#" class="block rounded-md px-4 py-3 text-sm hover:bg-accent" data-page="settings">⚙️ Settings</a>
+                        <hr class="my-2 border-border"/>
+                        <button id="mobile-logout-btn" class="w-full rounded-md bg-primary px-4 py-3 text-sm font-medium text-primary-foreground">🚪 Logout</button>
+                    </nav>
+                </div>
+
+                <!-- Balance Badge -->
+                <div class="pointer-events-none absolute right-6 top-4 z-20 hidden items-center gap-2 md:flex">
+                    <a href="#" class="pointer-events-auto inline-flex items-center gap-1.5 rounded-full bg-card/80 px-3 py-1.5 text-xs font-medium backdrop-blur transition-colors hover:bg-card" data-page="balance">
+                        <span>💰</span>
+                        <span id="nav-balance">$0.00</span>
+                    </a>
+                    <a href="#" class="pointer-events-auto relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-card/80 backdrop-blur transition-colors hover:bg-card">
+                        <span>🛒</span>
+                        <span id="cart-badge" class="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground hidden">0</span>
+                    </a>
+                </div>
+
+                <!-- Page Content -->
+                <div class="relative z-10 mx-auto w-full max-w-6xl px-4 py-8 md:px-6">
+                    <!-- Brand Header -->
+                    <div class="pb-2 pt-10 text-center sm:pt-14">
+                        <span class="text-6xl font-bold sm:text-7xl lg:text-8xl">🇬🇧 GBP Store</span>
+                        <p class="mt-3 text-sm font-semibold tracking-wide text-muted-foreground">Premium retail at your fingertips</p>
+                    </div>
+
+                    <!-- Dynamic Content Area -->
+                    <div id="page-content" class="mx-auto min-h-[calc(100vh-2rem)] max-w-5xl">
+                        <!-- Home Page Content (loaded by default) -->
+                        <div id="home-content">
+                            <!-- Welcome Banner -->
+                            <section class="rounded-xl bg-card p-4">
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <span class="text-xl">🎉</span>
+                                    <span class="text-sm font-medium">Welcome to GBP Store, shop and get rewards</span>
+                                    <span class="inline-flex items-center gap-1 rounded-md bg-background px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                                        <span>ℹ️</span> Info
+                                    </span>
+                                </div>
+                            </section>
+
+                            <!-- Account Overview -->
+                            <section class="mt-4 rounded-2xl bg-card p-6">
+                                <div class="flex flex-wrap items-center justify-between gap-4">
+                                    <div class="flex items-center gap-4">
+                                        <div class="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-primary text-2xl text-white">
+                                            £
+                                        </div>
+                                        <div>
+                                            <div class="text-xs uppercase tracking-widest text-muted-foreground">Account Overview</div>
+                                            <h1 id="user-display-name" class="text-2xl font-semibold">Guest</h1>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-xl bg-background px-6 py-3 text-right">
+                                        <div class="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Available Balance</div>
+                                        <div id="dashboard-balance" class="text-2xl font-semibold tracking-tight">$0.00</div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Stats -->
+                            <div class="mt-6 grid grid-cols-2 overflow-hidden rounded-xl bg-card sm:grid-cols-5">
+                                <div class="px-4 py-2.5 text-center text-sm font-medium bg-accent text-foreground cursor-pointer" data-stat="orders">Total Orders</div>
+                                <div class="px-4 py-2.5 text-center text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer" data-stat="spent">Total Spent</div>
+                                <div class="px-4 py-2.5 text-center text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer" data-stat="items">Items Purchased</div>
+                                <div class="px-4 py-2.5 text-center text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer" data-stat="deposits">Total Deposits</div>
+                                <div class="px-4 py-2.5 text-center text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer" data-stat="status">Order Status</div>
+                            </div>
+
+                            <!-- Orders Stats -->
+                            <section class="mt-6">
+                                <h2 class="text-center text-lg font-semibold tracking-tight">Total Orders <span class="font-normal text-muted-foreground">(All Time <span id="total-orders-count">0</span>)</span></h2>
+                                <div class="mt-1 text-center text-xs text-muted-foreground">( paid cart orders )</div>
+                                <div class="mt-4 grid gap-4 md:grid-cols-3">
+                                    <div class="overflow-hidden rounded-xl bg-accent">
+                                        <div class="py-4 text-center">
+                                            <div class="text-[11px] font-semibold uppercase tracking-widest text-foreground/70">Daily</div>
+                                            <div class="mt-1 text-sm font-semibold" id="orders-daily">0</div>
+                                        </div>
+                                        <div class="mx-auto h-px w-1/3 bg-foreground/20"></div>
+                                        <div class="py-4 text-center">
+                                            <div class="text-[11px] font-semibold uppercase tracking-widest text-foreground/70">Average</div>
+                                            <div class="mt-1 text-sm font-semibold" id="orders-avg-daily">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-hidden rounded-xl bg-card">
+                                        <div class="py-4 text-center">
+                                            <div class="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">7 Days</div>
+                                            <div class="mt-1 text-sm font-semibold" id="orders-week">0</div>
+                                        </div>
+                                        <div class="mx-auto h-px w-1/3 bg-border"></div>
+                                        <div class="py-4 text-center">
+                                            <div class="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Average</div>
+                                            <div class="mt-1 text-sm font-semibold" id="orders-avg-week">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-hidden rounded-xl bg-card">
+                                        <div class="py-4 text-center">
+                                            <div class="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">30 Days</div>
+                                            <div class="mt-1 text-sm font-semibold" id="orders-month">0</div>
+                                        </div>
+                                        <div class="mx-auto h-px w-1/3 bg-border"></div>
+                                        <div class="py-4 text-center">
+                                            <div class="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Average</div>
+                                            <div class="mt-1 text-sm font-semibold" id="orders-avg-month">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <footer class="mt-16 flex flex-col items-center gap-2 border-t border-border/60 pt-8 text-xs text-muted-foreground">
+                        <div class="flex items-center gap-1.5">
+                            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                            All systems operational
+                        </div>
+                        <div>© 2026 GBP Store. All rights reserved.</div>
+                    </footer>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>                    <input type="text" id="email" placeholder="Enter your email or username" required />
                 </div>
 
                 <div class="input-group">
