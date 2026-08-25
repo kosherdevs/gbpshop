@@ -1,0 +1,288 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(145deg, #f0f4f9 0%, #e6edf5 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 440px;
+}
+
+/* --- Card --- */
+.card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 44px 40px 36px;
+    box-shadow: 0 20px 60px rgba(26, 77, 143, 0.12), 0 8px 24px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 24px 72px rgba(26, 77, 143, 0.18), 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* --- Brand Header --- */
+.brand-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo span {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a2a3a;
+    letter-spacing: -0.5px;
+}
+
+.store-badge {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #1a4d8f;
+    background: #e8eff9;
+    padding: 4px 14px;
+    border-radius: 100px;
+}
+
+/* --- Typography --- */
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0b1a2e;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    color: #5e6f8d;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+/* --- Form --- */
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f3349;
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+}
+
+input {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    border: 1.5px solid #dce3ed;
+    border-radius: 12px;
+    background-color: #f9fafc;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    outline: none;
+    color: #0b1a2e;
+}
+
+input::placeholder {
+    color: #9aabbf;
+    font-weight: 400;
+}
+
+input:focus {
+    border-color: #1a4d8f;
+    box-shadow: 0 0 0 4px rgba(26, 77, 143, 0.10);
+    background-color: #ffffff;
+}
+
+/* --- Primary Button --- */
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    background: #1a4d8f;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+}
+
+.btn-primary:hover {
+    background: #0f3a6b;
+    box-shadow: 0 8px 24px rgba(26, 77, 143, 0.30);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* --- Links --- */
+.links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+    font-size: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.links a {
+    color: #1a4d8f;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.links a:hover {
+    color: #0f3a6b;
+    text-decoration: underline;
+}
+
+.forgot-link {
+    color: #5e6f8d !important;
+    font-weight: 400 !important;
+}
+
+.signup-text {
+    color: #5e6f8d;
+}
+
+.signup-text a {
+    font-weight: 600;
+    color: #1a4d8f;
+}
+
+/* --- Divider --- */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 28px 0 22px;
+    color: #9aabbf;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.divider span {
+    padding: 0 16px;
+}
+
+/* --- Social Buttons --- */
+.social-logins {
+    display: flex;
+    gap: 12px;
+}
+
+.social-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px;
+    border: 1.5px solid #dce3ed;
+    border-radius: 12px;
+    background: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f3349;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.social-btn:hover {
+    background: #f5f8fc;
+    border-color: #bcc8d8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.social-btn.google:hover {
+    border-color: #4285F4;
+}
+
+.social-btn.apple:hover {
+    border-color: #000;
+}
+
+/* --- Footer --- */
+.footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 12px;
+    color: #8a9bb0;
+    letter-spacing: 0.3px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+    .card {
+        padding: 32px 20px 28px;
+        border-radius: 20px;
+    }
+
+    .brand-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .logo span {
+        font-size: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .social-logins {
+        flex-direction: column;
+    }
+
+    .social-btn {
+        padding: 14px;
+    }
+}
